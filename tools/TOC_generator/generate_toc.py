@@ -19,8 +19,6 @@ import xml_utilities as xml
 
 def main():
     try:
-        # Determine that we're actually converting,
-        # not just testing a method
         if len(sys.argv) > 1:
             filePath = sys.argv[1]
 

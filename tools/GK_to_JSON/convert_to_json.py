@@ -1,6 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""Converts an XML file to JSON format.
+
+Usage:
+    python convert_to_json.py '../GK_to_XML/output/gk_hom_il_gk.xml' \
+        'output/hom_il_gk.json'
+
+Author: Eric Schmidt
+Version: 2019-11-24
+"""
 from codecs import open
 import json
 import convert
@@ -67,7 +76,7 @@ def convert_to_json(source_file, output_file, section_type, content_type, book_e
     work = {}
     sections = []
 
-    source = convert.openXMLSource(source_file)
+    source = convert.open_xml_source(source_file)
     work['title'] = (source[0]
         .find('fileDesc')
         .find('titleStmt')
@@ -100,11 +109,19 @@ def convert_to_json(source_file, output_file, section_type, content_type, book_e
     with open(output_file, 'w', encoding='utf-8') as output:
         json.dump(work, output, ensure_ascii=False)
 
+def main():
+    if len(sys.argv) > 1:
+        input_file = sys.argv[1]
+        output_file = sys.argv[2]
+        print('Starting process')
+
+        (convert_to_json(input_file,
+            output_file,
+            'book',
+            '5-lines',
+            'div1'))
+        print('Process finished.')
+
+
 if __name__ == '__main__':
-    print('Starting process')
-    (convert_to_json('../GK_to_XML/output/gk_hom_il_gk.xml',
-        'output/hom_il_gk.json',
-        'book',
-        '5-lines',
-        'div1'))
-    print('Process finished.')
+    main()

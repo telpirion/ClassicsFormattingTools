@@ -37,10 +37,10 @@ def init_new_XML_tree():
 def clean_file(f):
     ''' Remove all of the garbage from the input file.
 
-        Arguments:
-            f: the file to clean
-        Returns:
-            String: cleaned file output name
+    Arguments:
+        f: the file to clean
+    Returns:
+        Cleaned file output name
     '''
     data = f.read()
 
@@ -64,3 +64,13 @@ def clean_file(f):
         cleanFile.write(cleanData)
 
     return cleanFileName
+
+def open_xml_source(file):
+    """Opens an XML file and return the root element.
+    """
+    try:
+        tree = ET.parse(file)
+        root = tree.getroot()
+        return root
+    except RuntimeError:
+        print ('There was an error opening the source file')
